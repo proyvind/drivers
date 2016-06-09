@@ -301,7 +301,7 @@ static int dac088_reg_resume(struct spi_device *spi)
 #define dac088_resume  NULL
 #endif
 
-static int __devinit dac088_reg_probe(struct spi_device *spi)
+static int dac088_reg_probe(struct spi_device *spi)
 {
     int i;
     int ret;
@@ -367,7 +367,7 @@ err:
     return ret;
 }
 
-static int __devexit dac088_reg_remove(struct spi_device *spi)
+static int dac088_reg_remove(struct spi_device *spi)
 {
     int i;
     struct dac088_reg *reg = dev_get_drvdata(&spi->dev);
@@ -392,7 +392,7 @@ static struct spi_driver dac088_reg_driver = {
         .owner = THIS_MODULE,
     },
     .probe   = dac088_reg_probe,
-    .remove  = __devexit_p(dac088_reg_remove),
+    .remove  = dac088_reg_remove,
     .suspend = dac088_reg_suspend,
     .resume  = dac088_reg_resume,
 };
