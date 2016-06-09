@@ -315,7 +315,7 @@ static int dac088_reg_probe(struct spi_device *spi)
         return -ENXIO;
     }
 
-    reg = devm_kzalloc(sizeof(struct dac088_reg), GFP_KERNEL);
+    reg = devm_kzalloc(&spi->dev, sizeof(struct dac088_reg), GFP_KERNEL);
     if (unlikely(!reg)) {
         return -ENOMEM;
     }
