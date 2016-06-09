@@ -356,7 +356,7 @@ static int stepper_resume(struct spi_device *spi)
 #define stepper_resume  NULL
 #endif
 
-static int __devinit stepper_probe(struct spi_device *spi)
+static int stepper_probe(struct spi_device *spi)
 {
     int i, ret = 0;
     struct stepper_spi *stepper = NULL;
@@ -508,7 +508,7 @@ out:
     return ret;
 }
 
-static int __devexit stepper_remove(struct spi_device *spi)
+static int stepper_remove(struct spi_device *spi)
 {
     struct stepper_spi *stepper = dev_get_drvdata(&spi->dev); 
     
@@ -536,7 +536,7 @@ static struct spi_driver stepper_driver = {
         .owner = THIS_MODULE,
     },
     .probe    = stepper_probe,
-    .remove   = __devexit_p(stepper_remove),
+    .remove   = stepper_remove,
     .suspend  = stepper_suspend,
     .resume   = stepper_resume,
 };
