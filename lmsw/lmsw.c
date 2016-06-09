@@ -125,7 +125,7 @@ static int lmsw_request_irq(struct lmsw_dev *lmsw)
         flags = IRQF_TRIGGER_FALLING & IRQF_TRIGGER_MASK;
     }
 
-	ret = request_threaded_irq(OMAP_GPIO_IRQ(lmsw->gpio), 
+	ret = request_threaded_irq(gpio_to_irq(lmsw->gpio),
                                NULL, 
                                lmsw_irq,
                                flags,
@@ -140,7 +140,7 @@ static int lmsw_request_irq(struct lmsw_dev *lmsw)
 
 static void lmsw_free_irq(struct lmsw_dev *lmsw)
 {
-    free_irq(OMAP_GPIO_IRQ(lmsw->gpio), lmsw);
+    free_irq(gpio_to_irq(lmsw->gpio), lmsw);
 }
 
 static int __init lmsw_probe(struct platform_device *pdev)
