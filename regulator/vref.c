@@ -229,7 +229,7 @@ static const struct attribute_group vref_consumer_attr_group = {
 	.attrs	= vref_consumer_attributes,
 };
 
-static int __devinit vref_consumer_probe(struct platform_device *pdev)
+static int vref_consumer_probe(struct platform_device *pdev)
 {
     struct vref_platform_data *pdata = pdev->dev.platform_data;
 	struct vref_consumer_data *drvdata;
@@ -274,7 +274,7 @@ err:
 	return ret;
 }
 
-static int __devexit vref_consumer_remove(struct platform_device *pdev)
+static int vref_consumer_remove(struct platform_device *pdev)
 {
 	struct vref_consumer_data *drvdata = platform_get_drvdata(pdev);
 
@@ -295,7 +295,7 @@ static int __devexit vref_consumer_remove(struct platform_device *pdev)
 
 static struct platform_driver vref_consumer_x = {
 	.probe		= vref_consumer_probe,
-	.remove		= __devexit_p(vref_consumer_remove),
+	.remove		= vref_consumer_remove,
 	.driver		= {
 		.name		= "vref_consumer_x",
 		.owner		= THIS_MODULE,
@@ -304,7 +304,7 @@ static struct platform_driver vref_consumer_x = {
 
 static struct platform_driver vref_consumer_y = {
 	.probe		= vref_consumer_probe,
-	.remove		= __devexit_p(vref_consumer_remove),
+	.remove		= vref_consumer_remove,
 	.driver		= {
 		.name		= "vref_consumer_y",
 		.owner		= THIS_MODULE,
@@ -313,7 +313,7 @@ static struct platform_driver vref_consumer_y = {
 
 static struct platform_driver vref_consumer_z = {
 	.probe		= vref_consumer_probe,
-	.remove		= __devexit_p(vref_consumer_remove),
+	.remove		= vref_consumer_remove,
 	.driver		= {
 		.name		= "vref_consumer_z",
 		.owner		= THIS_MODULE,
@@ -322,7 +322,7 @@ static struct platform_driver vref_consumer_z = {
 
 static struct platform_driver vref_consumer_ext1 = {
 	.probe		= vref_consumer_probe,
-	.remove		= __devexit_p(vref_consumer_remove),
+	.remove		= vref_consumer_remove,
 	.driver		= {
 		.name		= "vref_consumer_ext1",
 		.owner		= THIS_MODULE,
@@ -331,7 +331,7 @@ static struct platform_driver vref_consumer_ext1 = {
 
 static struct platform_driver vref_consumer_ext2 = {
 	.probe		= vref_consumer_probe,
-	.remove		= __devexit_p(vref_consumer_remove),
+	.remove		= vref_consumer_remove,
 	.driver		= {
 		.name		= "vref_consumer_ext2",
 		.owner		= THIS_MODULE,
@@ -340,7 +340,7 @@ static struct platform_driver vref_consumer_ext2 = {
 
 static struct platform_driver vref_consumer_ext3 = {
 	.probe		= vref_consumer_probe,
-	.remove		= __devexit_p(vref_consumer_remove),
+	.remove		= vref_consumer_remove,
 	.driver		= {
 		.name		= "vref_consumer_ext3",
 		.owner		= THIS_MODULE,
@@ -349,7 +349,7 @@ static struct platform_driver vref_consumer_ext3 = {
 
 static struct platform_driver vref_consumer_ext4 = {
 	.probe		= vref_consumer_probe,
-	.remove		= __devexit_p(vref_consumer_remove),
+	.remove		= vref_consumer_remove,
 	.driver		= {
 		.name		= "vref_consumer_ext4",
 		.owner		= THIS_MODULE,
@@ -358,7 +358,7 @@ static struct platform_driver vref_consumer_ext4 = {
 
 static struct platform_driver vref_consumer_ext5 = {
 	.probe		= vref_consumer_probe,
-	.remove		= __devexit_p(vref_consumer_remove),
+	.remove		= vref_consumer_remove,
 	.driver		= {
 		.name		= "vref_consumer_ext5",
 		.owner		= THIS_MODULE,
