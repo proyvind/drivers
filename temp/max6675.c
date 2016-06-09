@@ -138,7 +138,7 @@ static int max6675_resume(struct spi_device *spi)
 #define max6675_resume NULL
 #endif
 
-static int __devinit max6675_probe(struct spi_device *spi)
+static int max6675_probe(struct spi_device *spi)
 {
     int ret;
     struct max6675_data *data; 
@@ -188,7 +188,7 @@ free_data:
     return ret;
 }
 
-static int __devexit max6675_remove(struct spi_device *spi)
+static int max6675_remove(struct spi_device *spi)
 {
     struct max6675_data *data = spi_get_drvdata(spi);
 
@@ -206,7 +206,7 @@ static struct spi_driver max6675_driver = {
         .owner = THIS_MODULE,
     },
     .probe   = max6675_probe,
-    .remove  = __devexit_p(max6675_remove),
+    .remove  = max6675_remove,
     .suspend = max6675_suspend,
     .resume  = max6675_resume,
 };
