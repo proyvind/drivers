@@ -315,7 +315,7 @@ static int dac088_reg_probe(struct spi_device *spi)
         return -ENXIO;
     }
 
-    reg = kzalloc(sizeof(struct dac088_reg), GFP_KERNEL);
+    reg = devm_kzalloc(sizeof(struct dac088_reg), GFP_KERNEL);
     if (unlikely(!reg)) {
         return -ENOMEM;
     }
@@ -366,9 +366,6 @@ err:
         regulator_unregister(reg->rdev[i]);
     }
 
-    if (reg) {
-        kfree(reg);
-    }
     return ret;
 }
 
@@ -379,10 +376,6 @@ static int dac088_reg_remove(struct spi_device *spi)
     
     for (i = 0; i < DAC088_NUM_REGULATOR; i++) {
         regulator_unregister(reg->rdev[i]);
-    }
-
-    if (reg) {
-        kfree(reg);
     }
 
     dac_info("dac088 remove ok\n");
