@@ -309,6 +309,7 @@ static int dac088_reg_probe(struct spi_device *spi)
     struct regulator_dev *rdev;
     struct reg_info *info = dac088_infos;
     struct regulator_init_data *reg_data = spi->dev.platform_data;  //TODO
+    struct regulator_config config = { };
 
     if (!reg_data) {
         return -ENXIO;
@@ -342,7 +343,11 @@ static int dac088_reg_probe(struct spi_device *spi)
         reg->desc[i].type  = REGULATOR_VOLTAGE;
         reg->desc[i].owner = THIS_MODULE;
 
-        rdev = regulator_register(&reg->desc[i], &spi->dev, reg_data, reg);
+	config.dev = &spi->dev;
+	config.init_data = reg_data;
+	config.driver_data = reg;
+
+        rdev = regulator_register(&reg->desc[i], &config);
         if (IS_ERR(rdev)) {
             ret = PTR_ERR(rdev);
             dac_err("failed to register %s\n", info->name);
