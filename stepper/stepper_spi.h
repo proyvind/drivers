@@ -49,6 +49,11 @@ typedef struct stepper_cmd {
     uint8_t mode;
 } stepper_cmd_t;
 
+typedef struct stepper_cmd_lmsw_dir {
+    uint32_t axis;
+    uint8_t high;
+} stepper_cmd_lmsw_dir_t;
+
 /* ioctl commands for stepper spi driver */
 #define STEPPER_IOC_MAGIC    't'
 
@@ -65,6 +70,8 @@ typedef struct stepper_cmd {
 #define AUTOLEVEL_Z			_IO (STEPPER_IOC_MAGIC, 0x98)
 #define AUTOLEVEL_Z_GPIO_INPUT  _IO (STEPPER_IOC_MAGIC, 0x99)
 #define AUTOLEVEL_Z_GPIO_OUTPUT _IO (STEPPER_IOC_MAGIC, 0x9a)
+#define STEPPER_SET_LMSW_DIRECTION	_IOW (STEPPER_IOC_MAGIC, 0x9b, stepper_cmd_lmsw_dir_t)
+
 #ifdef __cplusplus
 extern "C"
 {
