@@ -59,7 +59,7 @@ MODULE_PARM_DESC(debug, "enable debug");
 static int stepper_major = STEPPER_MAJOR;
 
 static unsigned autoLevel_gpio = 14; //gpio0_14;
-static char autoLevel_gpio_desc[] = "autoLevel";
+//static char autoLevel_gpio_desc[] = "autoLevel";
 
 struct stepper_spi {
     /* spi device */
@@ -112,6 +112,8 @@ struct stepper_spi {
     /* stepper state */
     u8 state;
 };
+
+extern void lmsw_reinit(int axis, bool high);
 
 
 static int gpio_num = 0;
@@ -263,6 +265,7 @@ static long stepper_ioctl(struct file *file, uint cmd, ulong arg)
     u8 spi_cmd = 0;
     struct stepper_spi *stepper = file->private_data;
     stepper_cmd_t *command = (stepper_cmd_t *)&stepper->cmd;    
+	stepper_cmd_lmsw_dir_t axis_args;
 
     switch (cmd)
     {
@@ -323,6 +326,13 @@ static long stepper_ioctl(struct file *file, uint cmd, ulong arg)
     case AUTOLEVEL_Z_GPIO_OUTPUT: 
 		ret = gpio_direction_output(autoLevel_gpio, 1); 
         return 0;
+
+    case STEPPER_SET_LMSW_DIRECTION: 
+		if (copy_from_user(&axis_args, (void *)arg, sizeof(stepper_cmd_lmsw_dir_t))) {
+			return -EFAULT;
+		}
+		lmsw_reinit(axis_args.axis, axis_args.high);
+		return 0;
 
     default:
         return -EINVAL;
@@ -487,7 +497,6 @@ static int stepper_probe(struct spi_device *spi)
         st_err("Failed to create attribute config gpio group: %d\n", ret);
         goto out;
     }
-
 
 #if 0
 	if (gpio_request(autoLevel_gpio, autoLevel_gpio_desc) < 0) {
